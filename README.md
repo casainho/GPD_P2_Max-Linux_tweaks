@@ -1,4 +1,12 @@
-# GPD_P2_Max-fan
+# Fan control
+
+Copy the script file ¨ec_control.pl¨ to root and make it execuatble:
+
+
+
+WIP
+
+
 
 Place the script files on /
 Make them executable: sudo chmod a+x scrit_file
