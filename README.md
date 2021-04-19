@@ -107,5 +107,6 @@ Reboot and then run ''gnome-tweaks'' and enable ''auto hide top bar'' that will 
 
 ## Lower screen brightness
 
-The lowest brightness is even higher for me. luckly on Linux Ubuntu is easy to make all the image with less brightness and so I increase one step the display brightness to avoid the bliking and then I reduce by software with this command: xrandr --output DSI-1 --brightness 0.4
-I even did customize keyboard shortcuts on Linux Ubuntu to execute the line, so with key combination I can increase or decrese that xrandr --output DSI-1 --brightness value
+The lowest brightness is even higher for me. luckly on Linux Ubuntu is easy to make all the image with less brightness and so I increase one step the display brightness to avoid the bliking and then I reduce by software with this command: sudo xrandr --output eDP-1 --brightness 0.5
+
+I even did customize keyboard shortcuts on Linux Ubuntu to execute the line, so with key combination I can increase or decrese thatsudo xrandr --output eDP-1 --brightness value.
