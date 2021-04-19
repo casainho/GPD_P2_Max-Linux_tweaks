@@ -1,3 +1,32 @@
+# Undervolt and lower CPU frequency
+
+As I am looking to get the fanless and best battery range, I decided to undervolt and reduce the CPU frequency. With the following settings I get battery for 7 hours and the fan can be mostly disabled.
+
+Create the folowing script file on /: gpd_p2_max_power.sh and with this contents:
+
+#!/bin/sh
+undervolt -v --core -90 --cache -90 --gpu -175 --uncore -65 --analogio -50; \
+cpufreq-set -r -c 0 -g powersave; \
+cpufreq-set -r -c 1 -g powersave; \
+cpufreq-set -r -c 2 -g powersave; \
+cpufreq-set -r -c 3 -g powersave; \
+cpufreq-set -r -c 0 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 1 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 2 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 3 -d 400MHz -u 2000MHz; \
+
+Then add that file as a service that will start at startup. Note that you may need to change a bit the values for undervolt and you may want to increase the CPU frequency over 2000MHz.
+
+# Manual control fan speed
+
+Run ec_control this way, from fan_0 to get the fan disabled up to fan_4 to have the max speed:
+sudo ./ec_control.pl gpd_p2_max-fan_0
+sudo ./ec_control.pl gpd_p2_max-fan_1
+sudo ./ec_control.pl gpd_p2_max-fan_2
+sudo ./ec_control.pl gpd_p2_max-fan_3
+sudo ./ec_control.pl gpd_p2_max-fan_4
+
+NOTE: you can assign keyboard shortcuts to run a script with each option, so you can control the fan manually.
 
 # Fan silent
 
@@ -76,25 +105,7 @@ Run ''gnome-tweaks'', on ''Keyboard and Mouse'', click on Additional Layout Opti
 
 Reboot and then run ''gnome-tweaks'' and enable ''auto hide top bar'' that will make the top bar auto hide. Also enable ''pixel saver'' and windows top bar will disappear but the control buttons will be available on the Ubuntu top bar.
 
-On Ubuntu settings, set the Auto-hide the dock.
+## Lower screen brightness
 
-In Chrome Internet browser go to Settings -> Appearance -> deselect "Use system style title bar and border".
-
-# Undervolt and lower CPU frequency
-
-As I am looking to get the fanless and best battery range, I decided to undervolt and reduce the CPU frequency. With the following settings I get battery for 7 hours and the fan can be mostly disabled.
-
-Create the folowing script file on /: gpd_p2_max_power.sh and with this contents:
-
-#!/bin/sh
-undervolt -v --core -90 --cache -90 --gpu -175 --uncore -65 --analogio -50; \
-cpufreq-set -r -c 0 -g powersave; \
-cpufreq-set -r -c 1 -g powersave; \
-cpufreq-set -r -c 2 -g powersave; \
-cpufreq-set -r -c 3 -g powersave; \
-cpufreq-set -r -c 0 -d 400MHz -u 2000MHz; \
-cpufreq-set -r -c 1 -d 400MHz -u 2000MHz; \
-cpufreq-set -r -c 2 -d 400MHz -u 2000MHz; \
-cpufreq-set -r -c 3 -d 400MHz -u 2000MHz; \
-
-Then add that file as a service that will start at startup. Note that you may need to change a bit the values for undervolt and you may want to increase the CPU frequency over 2000MHz.
+The lowest brightness is even higher for me. luckly on Linux Ubuntu is easy to make all the image with less brightness and so I increase one step the display brightness to avoid the bliking and then I reduce by software with this command: xrandr --output DSI-1 --brightness 0.4
+I even did customize keyboard shortcuts on Linux Ubuntu to execute the line, so with key combination I can increase or decrese that xrandr --output DSI-1 --brightness value
