@@ -428,7 +428,30 @@ if (!$ARGV[0]){
 	}
 
 	close_ioports();
-
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_0") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($FAN_DISABLE);
+	close_ioports();
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_1") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($FAN_LEVEL_1);
+	close_ioports();
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_2") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($FAN_LEVEL_2);
+	close_ioports();
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_3") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($FAN_LEVEL_3);
+	close_ioports();
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_4") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($FAN_LEVEL_4);
+	close_ioports();
+} elsif ($ARGV[0] eq "gpd_p2_max-fan_value") {
+	initialize_ioports();
+	gpd_p2_max_write_ec($ARGV[1]);
+	close_ioports();	
 } else {
 	print "wrong arguments!\n";
 }
