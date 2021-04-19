@@ -79,3 +79,22 @@ Reboot and then run ''gnome-tweaks'' and enable ''auto hide top bar'' that will 
 On Ubuntu settings, set the Auto-hide the dock.
 
 In Chrome Internet browser go to Settings -> Appearance -> deselect "Use system style title bar and border".
+
+# Undervolt and lower CPU frequency
+
+As I am looking to get the fanless and best battery range, I decided to undervolt and reduce the CPU frequency. With the following settings I get battery for 7 hours and the fan can be mostly disabled.
+
+Create the folowing script file on /: gpd_p2_max_power.sh and with this contents:
+
+#!/bin/sh
+undervolt -v --core -90 --cache -90 --gpu -175 --uncore -65 --analogio -50; \
+cpufreq-set -r -c 0 -g powersave; \
+cpufreq-set -r -c 1 -g powersave; \
+cpufreq-set -r -c 2 -g powersave; \
+cpufreq-set -r -c 3 -g powersave; \
+cpufreq-set -r -c 0 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 1 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 2 -d 400MHz -u 2000MHz; \
+cpufreq-set -r -c 3 -d 400MHz -u 2000MHz; \
+
+Then add that file as a service that will start at startup. Note that you may need to change a bit the values for undervolt and you may want to increase the CPU frequency over 2000MHz.
