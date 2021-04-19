@@ -3,7 +3,7 @@
 As I am looking to get the fanless and best battery range, I decided to undervolt and reduce the CPU frequency. With the following settings I get battery for 7 hours and the fan can be mostly disabled.
 
 Create the folowing script file on /: gpd_p2_max_power.sh and with this contents:
-
+```
 #!/bin/sh
 undervolt -v --core -90 --cache -90 --gpu -175 --uncore -65 --analogio -50; \
 cpufreq-set -r -c 0 -g powersave; \
@@ -14,17 +14,20 @@ cpufreq-set -r -c 0 -d 400MHz -u 2000MHz; \
 cpufreq-set -r -c 1 -d 400MHz -u 2000MHz; \
 cpufreq-set -r -c 2 -d 400MHz -u 2000MHz; \
 cpufreq-set -r -c 3 -d 400MHz -u 2000MHz; \
+```
 
 Then add that file as a service that will start at startup. Note that you may need to change a bit the values for undervolt and you may want to increase the CPU frequency over 2000MHz.
 
 # Manual control fan speed
 
 Run ec_control this way, from fan_0 to get the fan disabled up to fan_4 to have the max speed:
+```
 sudo ./ec_control.pl gpd_p2_max-fan_0
 sudo ./ec_control.pl gpd_p2_max-fan_1
 sudo ./ec_control.pl gpd_p2_max-fan_2
 sudo ./ec_control.pl gpd_p2_max-fan_3
 sudo ./ec_control.pl gpd_p2_max-fan_4
+```
 
 NOTE: you can assign keyboard shortcuts to run a script with each option, so you can control the fan manually.
 
@@ -42,13 +45,16 @@ Run the script to see it working (the fan should start running slower):
 Configure Crontab to call ''ec_control.pl'' every 10 seconds:
 * Edit crontab config file	
   * sudo EDITOR=gedit crontab -e	
-* Write at the end of the config file -- NOTE that there should be no space at start of each line and there is a space between each asterisk:<br>	
+* Write at the end of the config file -- NOTE that there should be no space at start of each line and there is a space between each asterisk:<br>
+```	
  * * * * * ( /ec_control.pl gpd_p2_max )	
  * * * * * ( sleep 10 ; /ec_control.pl gpd_p2_max )	
  * * * * * ( sleep 20 ; /ec_control.pl gpd_p2_max )	
  * * * * * ( sleep 30 ; /ec_control.pl gpd_p2_max )	
  * * * * * ( sleep 40 ; /ec_control.pl gpd_p2_max )	
  * * * * * ( sleep 50 ; /ec_control.pl gpd_p2_max )	
+```
+
 * Check crontab to see if the previous lines were saved	
  sudo crontab -l
 
